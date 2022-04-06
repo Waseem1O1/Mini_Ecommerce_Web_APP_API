@@ -1,0 +1,55 @@
+﻿@model Mini_Ecommerce_Comsuming_APIS.Models.ProductModel
+
+@{
+    ViewData["Title"] = "Add New Product";
+}
+<form method="post" id="productData" enctype="multipart/form-data" asp-action="Add">
+
+    <div class="container-fluid border p-5 bg-light shadow-lg p-3 mb-5 bg-body rounded mt-3">
+        <div class="row justify-content-center">
+            <i class="bi bi-bag-plus-fill display-4 text-center"></i>
+            <h5 class="text-center">Add New Product</h5>
+            <hr />
+            <div class="col-md-12 text-center">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ProductName" class="control-label"></label>
+                    <input asp-for="ProductName" placeholder="Product name?" id="productname" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductDescription" class="control-label"></label>
+                    <textarea class="form-control" placeholder="Define this product" id="productdes" asp-for="ProductDescription" id="exampleTextarea" rows="3"></textarea>
+                    <span asp-validation-for="ProductDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" id="productprice" placeholder="How much your this product worth?" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <hr />
+
+                <div class="form-group files">
+                    <label>Upload Images Here &nbsp; <i class="bi bi-upload"></i></label>
+                    <input type="file" id="fileupload" title="Choose File or Drag and Drop" multiple="multiple" name="files" class="form-control bg-light file-upload" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row justify-content-center mb-2">
+                <div class="col-md-6">
+                    <div class="gallery" style="margin-top:30px"></div>
+                </div>
+            </div>
+            <hr />
+            <input type="submit" id="btnproduct" value="Add Now" class="btn btn-primary w-25 p-2" />
+        </div>
+    </div>
+</form>
+
+@*@section Scripts {
+    @{
+   
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}*@

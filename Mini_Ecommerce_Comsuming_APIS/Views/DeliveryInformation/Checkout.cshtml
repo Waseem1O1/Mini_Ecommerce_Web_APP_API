@@ -1,0 +1,157 @@
+﻿@model Mini_Ecommerce_Comsuming_APIS.Models.CombinedModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="container-fluid border p-5 bg-light shadow-lg p-3 mb-2 bg-body rounded mt-3">
+                <label class="control-label fw-bold">Delivery Information</label>
+                <form asp-action="DeliveryInformation">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group  mt-4">
+                                <label asp-for="DIM.FullName" class="control-label text-muted"></label>
+                                <input asp-for="DIM.FullName" placeholder="Enter your first and last name" class="form-control" />
+                                <span asp-validation-for="DIM.FullName" class="text-danger"></span>
+                            </div>  <div class="form-group  mt-4">
+                                <label asp-for="DIM.PhoneNumber" class="control-label  text-muted"></label>
+                                <input asp-for="DIM.PhoneNumber" placeholder="Enter your phone number" class="form-control" />
+                                <span asp-validation-for="DIM.PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div> <div class="col-md-6">
+                            <div class="form-group mt-4">
+                                <label asp-for="DIM.Province" class="control-label text-muted"></label>
+                                @Html.DropDownListFor(m => m.DIM.Province,
+                                new SelectList(Enum.GetValues(typeof(Province))),
+                                "Please choose your province", new{@class="form-control text-muted"})
+                            </div>
+                            <div class="form-group mt-4">
+                                <label asp-for="DIM.City" class="control-label text-muted"></label>
+                                @Html.DropDownListFor(m => m.DIM.City,
+                                new SelectList(Enum.GetValues(typeof(Cities))),
+                                "Please choose your city", new{@class="form-control text-muted"})
+                                <span asp-validation-for="DIM.City" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label asp-for="DIM.Area" class="control-label text-muted"></label>
+                                <input asp-for="DIM.Area" placeholder="Enter the Area Name Near You" class="form-control" />
+                                <span asp-validation-for="DIM.Area" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mt-4">
+                                <label asp-for="DIM.Address" class="control-label text-muted"></label>
+                                <input asp-for="DIM.Address" placeholder="For Example: House#123, Street#123" class="form-control" />
+                                <span asp-validation-for="DIM.Address" class="text-danger"></span>
+                            </div>
+                            <hr />
+                            <div class="form-group justify-content-end">
+                                <input type="submit" value="SAVE" class="btn btn-primary w-50 p-2" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <form method="get" enctype="multipart/form-data" asp-action="DeliveryInformation" asp-controller="DeliveryInformation">
+                <div class="container-fluid border p-3 bg-light shadow-lg p-3 mb-5 bg-body rounded mt-3">
+                    <div class="row">
+                        <p class="fw-bold">Payment Summary</p>
+                        <hr />
+                        <div class="col-sm-6 pb-2 text-muted">
+                            <span>Sub Total</span>
+                        </div>
+                        <div class="col-sm-6 pb-2">
+                            Rs. @ViewBag.subtotal
+                        </div>
+                        <hr />
+                        <div class="col-sm-6 pb-2 text-muted">
+                            <span>Discount</span>
+                        </div>
+                        <div class="col-sm-6 pb-2">
+                            @ViewBag.disc %
+                        </div>
+                        <hr />
+                        <div class="col-sm-6 pb-2 text-muted">
+                            <span>Discount Amount</span>
+                        </div>
+                        <div class="col-sm-6 pb-2">
+                            Rs.  @ViewBag.discount
+                        </div>
+                        <hr />
+                        <div class="col-sm-6 fw-bold p-2">
+                            <span>Payable</span>
+                        </div>
+                        <div class="col-sm-6 fw-bold p-2">
+                            @ViewBag.remaining
+                        </div>
+                    </div>
+                    <a class="btn btn-warning w-100 fw-bold mt-1 mt-4"> Proceed to Pay</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="border p-3  bg-light shadow-lg bg-body rounded">
+                <div class="row">
+                    <div class="col-sm-7">
+                        Items
+                    </div>
+                    <div class="col-sm-2">Price</div>
+                    <div class="col-sm-3"> Quantity</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="border p-3  bg-light shadow-lg mt-2 bg-body rounded">
+                @*    <form asp-action="UpdateCart">
+                *@        <table class="table table-responsive-md">
+                    <tbody>
+                        @foreach (var item in Model.ProductList)
+                        {
+                            <tr>
+                                <td class="p-3 w-25">
+                                    <img src="@String.Format(" data:image /gif;base64,{0}", Convert.ToBase64String(item.Image))" class="img-fluid w-50">
+                                </td>
+                                <td class="p-3" style="display:none">
+                                    @Html.DisplayFor(modelItem => item.ProductID)
+                                </td>
+                                <td class="p-3" style="display:none">
+                                    @Html.DisplayFor(modelItem => item.LineTotal)
+                                </td>
+                                <td class="p-3" style="display:none">
+                                    @Html.DisplayFor(modelItem => item.Quantity,new{@class="count"})
+                                </td>
+
+                                <td class="p-3">
+                                    @Html.DisplayFor(modelItem => item.ProductID)
+                                    @Html.DisplayFor(modelItem => item.ProductName,new{@class="text-primary"})
+                                </td>
+
+                                <td class="p-3 text-warning fw-bold text-muted">
+                                    Rs.  @Html.DisplayFor(modelItem => item.Price)
+                                    <input asp-for="@item.Price" id="price" hidden class="count border-0 border-white bg-white text-center w-25" type="text" />
+                                </td>
+                                <td class="p-3 text-secondary text-muted">
+                                    QTY  @Html.DisplayFor(modelItem => item.Quantity)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        @section Scripts {
+        @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+        }

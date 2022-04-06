@@ -1,0 +1,55 @@
+﻿@model Mini_Ecommerce_Comsuming_APIS.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+<div class="border pt-2 pb-5 mt-4">
+
+    <div class="row justify-content-center">
+        <div class="col-md-7" style="text-align:center">
+            <div class="display-2">
+                <i class="bi bi-people"></i>
+            </div>
+            <h3>Register a new user</h3>
+            <hr />
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light" id="basic-addon1"><i class="bi bi-envelope-check"></i></span>
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light" id="basic-addon1"><i class="bi bi-lock"></i></span>
+                        <input asp-for="Password" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light" id="basic-addon1"><i class="bi bi-lock"></i></span>
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Assign Role</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-primary text-light" id="basic-addon1"><i class="bi bi-envelope"></i></span>
+                        <select class="form-control" asp-for="Id" asp-items="ViewBag.aspnetroleslist">
+                        </select>
+                    </div>
+                </div>
+                <hr />
+                <button type="submit" class="btn btn-primary w-50 mt-2"> <i class="bi bi-plus-circle"></i>&nbsp;Register</button>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+﻿@model Mini_Ecommerce_Comsuming_APIS.Models.CouponCodeModel
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+
+<div class="container-fluid border pt-2 pb-5 bg-light shadow-lg mb-5 bg-body rounded mt-5">
+    <h5>Create Coupon Code</h5>
+    <hr />
+    <div class="row justify-content-center">
+
+        <div class="col-md-8 mt-3 text-center">
+            <i class="bi bi-bag-plus-fill pb-2"></i>
+            <form asp-action="Add">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CouponCode" class="control-label"></label>
+                    <input asp-for="CouponCode" class="form-control" />
+                    <span asp-validation-for="CouponCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PercentageAmount" class="control-label"></label>
+                    <input asp-for="PercentageAmount" class="form-control" />
+                    <span asp-validation-for="PercentageAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MoneyAmount" class="control-label"></label>
+                    <input asp-for="MoneyAmount" class="form-control" />
+                    <span asp-validation-for="MoneyAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ValidUpto" class="control-label"></label>
+                    <input asp-for="ValidUpto" class="form-control" />
+                    <span asp-validation-for="ValidUpto" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsValid" /> @Html.DisplayNameFor(model => model.IsValid)
+                    </label>
+                </div>
+                <hr />
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary bg-primary text-white" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

@@ -1,0 +1,250 @@
+﻿@model Mini_Ecommerce_Comsuming_APIS.Models.CombinedModel
+
+@{
+    ViewData["Title"] = "Cart";
+}
+@{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="mt-2 mb-0 text-success"><strong>Cart</strong></h3>
+                <hr class="mt-1" />
+            </div>
+        </div>
+    </div>
+    if (TempData["NoItems"] != null)
+    {
+        <div class="container mt-0">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-dismissible  alert-success">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>No item(s) in the cart yet.</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+
+        <div class="row">
+
+            <div class="col-sm-8 justify-content-lg-start">
+                <div class="border p-3  bg-light shadow-lg mt-2 bg-body rounded">
+                    @*    <form asp-action="UpdateCart">
+                    *@   <table id="table_id" class="display">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th> </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ProductList)
+                            {
+                                <tr>
+                                    <td class="p-3">
+                                        <img src="@String.Format(" data:image /gif;base64,{0}", Convert.ToBase64String(item.Image))" class="img-fluid w-50">
+                                    </td>
+                                    <td class="p-3" style="display:none">
+                                        @Html.DisplayFor(modelItem => item.ProductID)
+                                    </td>
+                                    <td class="p-3" style="display:none">
+                                        @Html.DisplayFor(modelItem => item.LineTotal)
+                                    </td>
+                                    <td class="p-3" style="display:none">
+                                        @Html.DisplayFor(modelItem => item.Quantity,new{@class="count"})
+
+                                    </td>
+
+                                    <td class="p-3">
+                                        @*@Html.DisplayFor(modelItem => item.ProductID)
+                                        *@@Html.DisplayFor(modelItem => item.ProductName,new{@class="text-primary"})
+                                    </td>
+
+                                    <td class="p-3">
+                                        @Html.DisplayFor(modelItem => item.Price)
+                                        <input asp-for="@item.Price" id="price" hidden class="count border-0 border-white bg-white text-center w-25" type="text" />
+                                    </td>
+                                    @* <td class="p-3">
+                                        @Html.DisplayFor(modelItem => item.LineTotal)
+                                        </td>*@
+                                    <td class="p-3 w-25 AllocatedAmounts3">
+                                        <a class="btn btn-secondary plus"> <i class="bi bi-plus-lg"></i> </a>
+                                        <input asp-for="@item.Quantity" class="count border-round border-0 border-white bg-white text-center w-25" type="text" />
+                                        <a class="btn btn-secondary minus"> <i class="bi bi-dash-lg"></i></a>
+                                    </td>
+                                    <td class="p-3">
+                                        <a asp-action="RemoveFromCart" asp-route-id="@item.ProductID"> <i class="bi bi-trash text-danger"></i></a>
+                                    </td>
+                                    <td class="p-3">
+                                        <a class="text-dark w-100" id="btnSend"> <i class="bi bi-check text-muted"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+                <hr>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4 mt-2">
+                            <a class="btn btn-warning w-100" asp-action="Index" type="button"><i class="bi bi-shop"></i> &nbsp;Continue Shopping</a>
+                        </div> <div class="col-sm-4 mt-2">
+                        </div> <div class="col-sm-4 mt-2">
+                            <a class="btn btn-warning w-100" asp-action="DeleteCart" type="button"><i class="bi bi-trash"></i> &nbsp;Empty Cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+
+                <div class="border bg-light shadow-lg p-4 mt-2 bg-body rounded">
+                    <p class="fw-bold">Order Summary</p>
+                    <div class="row">
+                        <form asp-action="Cart" asp-controller="product">
+                            <div class="row">
+                                <div class="col-sm-6 pt-2 text-muted" style="font-size:14px"> Sub Total</div>
+                                <div class="col-sm-6">
+                                    Rs  <label id="lblsub">@Model.ProductList.Sum(b=>b.LineTotal)</label>
+                                    <input class="form-control w-100 border border-white bg-white" asp-for="DM.total" hidden readonly="readonly" value="@Model.ProductList.Sum(b=>b.LineTotal)" id="lbll" />
+                                </div>
+                                <div class="col-sm-6 pb-3 pt-2 text-muted" style="font-size:14px"> Shipping Fee</div>
+                                <div class="col-sm-6 pb-5">
+                                    Rs <label>150.00</label>
+                                    <input class="form-control w-100 border border-white bg-white" asp-for="DM.shipping" hidden readonly="readonly" value="150.00" id="lblship" />
+                                </div>
+                                <div class="col-sm-6 roww">
+                                    <input class="form-control w-100" asp-for="DM.couponcode" placeholder="Enter Coupon Code" id="txtcoupon" />
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="submit" value="Apply" class="btn btn-primary text-white w-100" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mt-1">
+                                    @if (ViewBag.InvalidCoupon != null)
+                                    {
+                                        <div class="alert alert-dismissible alert-danger w-100 p-1" id="invalidCouponAlert">
+                                            <small>
+                                                Invalid Coupon Code Entered,Try Another.
+                                            </small>
+
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-sm-6 pt-1 text-muted" style="font-size:14px">Discount(%)</div>
+                                <div class="col-sm-6 pt-1 rw">
+                                    @if (Model.DM != null)
+                                    {
+                                        <label>@Model.DM.discountpercentage</label>
+
+                                        <input class="form-control w-100 border border-white bg-white" hidden name="discountpercent" readonly="readonly" value='@Model.DM.discountpercentage' id="txtdispercen" />
+                                    }
+                                </div>
+                                <div class="col-sm-6 pt-3 text-muted" style="font-size:14px">Discount(Amount)</div>
+                                <div class="col-sm-6 pt-1 rw">
+                                    @if (Model.DM != null)
+                                    {
+                                        <label>@Model.DM.discount</label>
+
+                                        <input class="form-control w-100 border border-white bg-white" hidden name="discount" readonly="readonly" value='@Model.DM.discount' id="txtdiscount" />
+                                    }
+                                </div>
+                                <div class="col-sm-6  pt-3 text-muted" style="font-size:14px">Total</div>
+                                <div class="col-sm-6 pt-1 rw">
+                                    Rs <label id="lbltotal">@Model.ProductList.Sum(b=>b.LineTotal)</label>
+                                    <input class="form-control w-100" hidden name="total" readonly="readonly" value="@Model.ProductList.Sum(b=>b.LineTotal)" id="lbll1" />
+                                </div>
+                                <div class="col-sm-6 pt-3 text-muted" style="font-size:14px">Payable</div>
+                                <div class="col-sm-6 pt-1 rw">
+                                    @if (Model.DM != null)
+                                    {
+                                        <label>@Model.DM.payable</label>
+                                        <input class="form-control w-100 border border-white bg-white" hidden name="remaining" readonly="readonly" value='@Model.DM.payable' id="txtremaing" />
+                                    }
+                                </div>
+                            </div>
+                            <input class="btn btn-warning w-100 fw-bold mt-1 mt-4" type="submit" asp-action="Checkout" asp-controller="DeliveryInformation" value="Proceed To Checkout" />
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="modal fade pb-4" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row justify-content-center pt-2">
+                                <div class="col-md-12">
+                                    <h2 class="text-center">Login</h2>
+                                    <p class="text-center">Welcome To Login</p>
+                                    <form method="post" asp-action="login" asp-controller="Product">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group justify-content-start">
+                                            <label asp-for="LVM.Email"></label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text bg-primary text-light" id="basic-addon1"><i class="bi bi-envelope"></i></span>
+                                                <input asp-for="LVM.Email" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="LVM.Email" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="LVM.Password"></label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text bg-primary text-light" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
+                                                <input asp-for="LVM.Password" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="LVM.Password" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input asp-for="LVM.RememberMe" type="checkbox" class="custom-control-input">
+                                                <label class="custom-control-label" asp-for="LVM.RememberMe">@Html.DisplayNameFor(m => m.LVM.RememberMe)</label>
+                                            </div>
+
+                                        </div>
+                                        <hr />
+
+                                        <button type="submit" class="btn btn-primary bg-primary w-100">Login</button>
+                                        <hr />
+                                        <a asp-action="Register" asp-controller="Account" class="btn  btn-secondary w-100"> <i class="bi bi-plus"></i> &nbsp;Register Yourself Now</a>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+@section Scripts{
+     @if (ViewBag.modal != null)
+    {
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#staticBackdrop').modal('show');
+    });
+</script>
+    }
+        }
+
+

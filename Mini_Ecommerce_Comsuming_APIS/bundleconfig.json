@@ -1,0 +1,25 @@
+[
+  {
+    "outputFileName": "wwwroot/js/sitee.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "wwwroot/js/filedrop.js",
+      "wwwroot/js/jquery.ez-plus.js",
+      "wwwroot/js/paginga.jquery.js",
+      "wwwroot/js/CustomJQuery.js",
+      "wwwroot/js/CustomJquerydetails.js",
+      "wwwroot/js/CustomJQuerySearchBar.js",
+      "wwwroot/js/site.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/sitee.css",
+    "inputFiles": [
+      "wwwroot/css//bootstrap-icons/font/bootstrap-icons.css",
+      "wwwroot/css/bootstrap.css",
+      "wwwroot/css/CustomCss.css",
+      "wwwroot/css/site.css"
+    ]
+  }
+]

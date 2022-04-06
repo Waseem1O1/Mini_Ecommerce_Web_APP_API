@@ -1,0 +1,14 @@
+﻿@{
+    if (Context.Request.Cookies["Keyvalue"] == "Cerulean" || Context.Request.Cookies["Keyvalue"] == null)
+    {
+        Layout = "_Layout";
+
+    }
+    else
+    {
+        if (Context.Request.Cookies["Keyvalue"] == "Darkly")
+        {
+            Layout = "_DarklyLayout";
+        }
+    }
+}

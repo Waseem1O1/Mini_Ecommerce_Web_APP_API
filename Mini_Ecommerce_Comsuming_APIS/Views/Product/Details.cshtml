@@ -1,0 +1,75 @@
+﻿@model Mini_Ecommerce_Comsuming_APIS.Models.CombinedModel
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Product Details";
+}
+<form asp-action="SaveCart">
+    @* <div class="container mt-2">
+        <div class="row justify-content-end">
+        <div class="col-sm-2">
+        <a asp-action="Delete" asp-route-id="@Model.PM.ProductID" class="btn btn-danger w-100"> <i class="bi bi-trash"></i> &nbsp;Delete Product</a>
+        </div>
+        </div>
+        </div>*@
+    <div class="container border  p-5  bg-light shadow-lg p-3 mt-4 bg-body rounded">
+
+        <div class="row">
+            <div class="col-sm-5">
+                <img id="img_01" src="@String.Format("data:image /gif;base64,{0}", Convert.ToBase64String(Model.PM.Image))" class="zoom-img border border-2 p-1" width="411" height="311">
+                <div class="row m-2">
+                    @foreach (var item in Model.MIM)
+                    {
+                        <div class="col-sm-3">
+                            <img onclick="myFunction(this);" src="@String.Format(" data:image /gif;base64,{0}", Convert.ToBase64String(item.Image))" class="img-fluid w-100  border border-2 p-1">
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <div class="col-sm-7 pt-2">
+                <h3>
+                    @Html.HiddenFor(m => m.PM.ProductID, new { @class = "form-control" })
+                    @Html.HiddenFor(m => m.PM.UserID, new { @class = "form-control" })
+                </h3> <h3>
+                    @Html.DisplayFor(model => model.PM.ProductName)
+                </h3>
+                <p style="font-size:14px" class="pb-2">
+                    @Html.DisplayFor(model => model.PM.ProductDescription)
+                </p>
+                <h4 class="pb-2">
+                    @Html.DisplayFor(model => model.PM.Price)
+                    @Html.HiddenFor(model => model.PM.Price)
+                </h4>
+                <div class="row pb-2">
+                    <div class="col-sm-6">
+                        <div class="ratings">
+                            <i class="bi bi-star-half text-primary"></i> <i class="bi bi-star-half text-primary"></i> <i class="bi bi-star-half text-primary"></i> <i class="bi bi-star-half text-primary"></i> <i class="bi bi-star-half text-primary"></i>
+                            <p>Reviews</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-start">
+                    <p class="fw-bolder">Quantity</p>
+                    <div class="col-sm-1">
+                        <a class="btn btn-secondary" id="plusdet"> <i class="bi bi-plus-lg"></i> </a>
+                    </div>
+                    <div class="col-sm-2">
+                        <input asp-for="@Model.PM.Quantity" value="1" class="countQty border-0 border-white bg-white text-center form-control" />
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="btn btn-secondary" id="minusdet"> <i class="bi bi-dash-lg"></i></a>
+                    </div> 
+                </div>
+                <div class="row pb-2 pt-5">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-warning w-100 fs-4 fw-bold  mt-1" value="Add To Cart" />
+                    </div>
+                    <div class="col-sm-6">
+                        <a asp-action="DeliveryInformation" asp-controller="DeliveryInformation" class="btn  btn-primary  w-100 w-100 fs-4 fw-bold mt-1" asp-route-id="@Model.PM.ProductID"> <i class="bi bi-cart"></i> &nbsp;Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

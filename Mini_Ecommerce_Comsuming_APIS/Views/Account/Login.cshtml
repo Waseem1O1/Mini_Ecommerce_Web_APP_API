@@ -1,0 +1,63 @@
+﻿@model Mini_Ecommerce_Comsuming_APIS.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="modal fade pb-4" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row justify-content-center pt-2">
+                        <div class="col-sm-12">
+                            <h2 class="text-center">Login</h2>
+                            <p class="text-center">Welcome To Login</p>
+                            <form method="post">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group justify-content-start">
+                                    <label asp-for="Email"></label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text bg-primary text-light" id="basic-addon1"><i class="bi bi-envelope"></i></span>
+                                        <input asp-for="Email" class="form-control" />
+                                    </div>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password"></label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text bg-primary text-light" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
+                                        <input asp-for="Password" class="form-control" />
+                                    </div>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input asp-for="RememberMe" type="checkbox" class="custom-control-input">
+                                        <label class="custom-control-label" asp-for="RememberMe">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                                    </div>
+
+                                </div>
+                                <hr />
+
+                                <button type="submit" class="btn btn-primary bg-primary w-100">Login</button>
+                                <hr />
+                                <a asp-action="Register" class="btn  btn-secondary w-100"> <i class="bi bi-plus"></i> &nbsp;Register Yourself Now</a>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/js/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#staticBackdrop').modal('show');
+    });
+</script>
