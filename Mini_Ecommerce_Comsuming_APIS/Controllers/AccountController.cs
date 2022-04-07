@@ -59,6 +59,10 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
             if (ModelState.IsValid)
             {
                 Microsoft.AspNetCore.Identity.SignInResult result = await _AccountViewModel.Login(user);
+                if(user.Email=="Waseemkhan51122@gmail.com")
+                {
+                    return RedirectToAction("Create_Role", "Admin");
+                }
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Product");

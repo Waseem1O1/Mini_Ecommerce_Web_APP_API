@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Mini_Ecommerce_Comsuming_APIS.Models;
@@ -6,6 +7,8 @@ using Mini_Ecommerce_Comsuming_APIS.ViewModels;
 
 namespace Mini_Ecommerce_Comsuming_APIS.Controllers
 {
+    [Authorize(Roles = "Admin")]
+
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;

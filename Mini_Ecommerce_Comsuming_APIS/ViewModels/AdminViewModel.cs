@@ -25,7 +25,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
         }
         public async Task<List<IdentityRole>> ListRoles()
         {
-            var roles = roleManager.Roles.ToList();
+            var roles = roleManager.Roles.Where(a => a.Name != "User").ToList();
             return roles;
         }
         public async Task<EditRoleModel> EditRole(string id)
