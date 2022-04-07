@@ -59,7 +59,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
         }
         public async Task<List<AddRoleModel>> EditUsersInRole(string roleId)
         {
-            List<AddRoleModel> model= new List<AddRoleModel>();
+            List<AddRoleModel> model = new List<AddRoleModel>();
             var role = await roleManager.FindByIdAsync(roleId);
             if (role != null)
             {

@@ -59,7 +59,6 @@ namespace Mini_Ecom_APIS.Repository
                           select new
                           {
                               mi.Image
-
                           };
             var list = await results.ToListAsync().ConfigureAwait(false);
             return list

@@ -40,8 +40,8 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
                 {
                     return RedirectToAction("Login", "Account");
                 }
-                var roles = roleManager.Roles.Where(a => a.Name == "User").ToList();
-                ViewBag.aspnetroleslist = new SelectList(roles.ToList(), "Id", "Name");
+                //var roles = roleManager.Roles.Where(a => a.Name == "User").ToList();
+                //ViewBag.aspnetroleslist = new SelectList(roles.ToList(), "Id", "Name");
                 ModelState.AddModelError(string.Empty, "Error Occured Cannot Register New User");
             }
             return View(model);
