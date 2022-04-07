@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Mini_Ecommerce_Comsuming_APIS.Models;
 using Mini_Ecommerce_Comsuming_APIS.ViewModels;
 
@@ -19,6 +20,13 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
             _AdmintViewModel = AdminViewModel;
         }
 
+        [HttpGet]
+        public IActionResult RegisterUsers()
+        {
+            var roles = roleManager.Roles.ToList();
+            ViewBag.aspnetroleslist = new SelectList(roles.ToList(), "Id", "Name");
+            return View();
+        }
         [HttpGet]
         public IActionResult Create_Role()
         {

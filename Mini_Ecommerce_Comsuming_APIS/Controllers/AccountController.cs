@@ -26,7 +26,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         }
         public IActionResult Register()
         {
-            var roles = roleManager.Roles.ToList();
+            var roles = roleManager.Roles.Where(a => a.Name == "User").ToList();
             ViewBag.aspnetroleslist = new SelectList(roles.ToList(), "Id", "Name");
             return View();
         }
@@ -40,6 +40,8 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
                 {
                     return RedirectToAction("Login", "Account");
                 }
+                var roles = roleManager.Roles.Where(a => a.Name == "User").ToList();
+                ViewBag.aspnetroleslist = new SelectList(roles.ToList(), "Id", "Name");
                 ModelState.AddModelError(string.Empty, "Error Occured Cannot Register New User");
             }
             return View(model);
