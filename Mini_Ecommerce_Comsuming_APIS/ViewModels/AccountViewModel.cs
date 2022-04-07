@@ -24,7 +24,6 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
             }
             return 0;
         }
-
         public async Task<int> Register(RegisterViewModel model)
         {
             var user = new IdentityUser

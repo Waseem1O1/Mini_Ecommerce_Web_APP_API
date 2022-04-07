@@ -14,6 +14,7 @@ builder.Services.AddTransient<IProductsViewModel, ProductViewModel>();
 builder.Services.AddScoped<IAccountViewModel, AccountViewModel>();
 builder.Services.AddTransient<ICouponViewModel, CouponViewModel>();
 builder.Services.AddTransient<IDeliveryInformationViewModel, DeliveryInformationViewModel>();
+builder.Services.AddTransient<IAdminViewModel, AdminViewModel>();
 //builder.Services.AddDistributedMemoryCache();
 //builder.Services.AddMemoryCache();
 //builder.Services.AddSession(options =>
