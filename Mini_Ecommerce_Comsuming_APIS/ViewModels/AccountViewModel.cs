@@ -14,17 +14,12 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
             _signInManager = signInManager;
             this.roleManager = roleManager;
         }
-        public async Task<int> Login(LoginViewModel user)
+        public async Task<SignInResult> Login(LoginViewModel user)
         {
             var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-            if (result.Succeeded)
-            {
-
-                return 1;
-            }
-            return 0;
+            return result;
         }
-        public async Task<int> Register(RegisterViewModel model)
+        public async Task<IdentityResult> Register(RegisterViewModel model)
         {
             var user = new IdentityUser
             {
@@ -34,35 +29,23 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                // await _signInManager.SignInAsync(user, isPersistent: false);
                 var role = await roleManager.FindByIdAsync(model.Id);
-
-                if (role == null)
-                {
-                    return 2;
-                }
-                else
+                if (role != null)
                 {
                     result = await _userManager.AddToRoleAsync(user, role.Name);
                 }
-                return 1;
             }
-
-            return 0;
+            return result;
         }
-        public async Task<int> Logout()
+        public async Task Logout()
         {
             await _signInManager.SignOutAsync();
-            return 1;
         }
-        public async Task<int> Logincheckout(CombinedModel user)
+        public async Task<SignInResult> Logincheckout(CombinedModel user)
         {
             var result = await _signInManager.PasswordSignInAsync(user.LVM.Email, user.LVM.Password, user.LVM.RememberMe, false);
-            if (result.Succeeded)
-            {
-                return 1;
-            }
-            return 0;
+            return result;
         }
     }
 }

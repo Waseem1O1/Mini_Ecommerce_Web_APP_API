@@ -67,10 +67,10 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         public async Task<IActionResult> Add(List<IFormFile> files, Product pm)
         {
             MultipleImagesModel mim = new MultipleImagesModel();
-            int Productid = await _ProductViewModel.Saving(files, pm);
+            var Productid = await _ProductViewModel.Saving(files, pm);
             mim.ProductId = Productid;
             var add = await _ProductViewModel.SavingMultipleImages(files, mim);
-            if (add != null && Productid != null)
+            if (add == true && Productid != 0)
             {
                 return RedirectToAction("Index");
             }
@@ -97,8 +97,8 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         }
         public async Task<ActionResult> Delete(int id)
         {
-            var deletedata = await _ProductViewModel.Delete(id);
-            if (deletedata == 1)
+            HttpResponseMessage res = await _ProductViewModel.Delete(id);
+            if (res.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
@@ -106,11 +106,10 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         }
         public async Task<ActionResult> DeleteCart(string id)
         {
-            var deletedata = await _ProductViewModel.DeleteCart(id);
-            if (deletedata == 1)
+            HttpResponseMessage res = await _ProductViewModel.DeleteCart(id);
+            if (res.IsSuccessStatusCode)
             {
                 return RedirectToAction("Cart");
-
             }
             return View();
         }
@@ -162,8 +161,12 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         }
         public async Task<ActionResult> RemoveFromCart(int id)
         {
-            await _ProductViewModel.RemoveFromCart(id);
-            return RedirectToAction("Cart");
+           HttpResponseMessage res= await _ProductViewModel.RemoveFromCart(id);
+            if(res.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Cart");
+            }
+            return View();
         }
         public async Task<ActionResult> UpdateCart(int id, string userid, decimal linetotal, decimal price, string quantity)
         {
@@ -178,14 +181,14 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(CombinedModel user, string id, CartDetailsModel cdm)
         {
-            int login = 0;
+            Microsoft.AspNetCore.Identity.SignInResult result = new Microsoft.AspNetCore.Identity.SignInResult();
             if (user.LVM.Email != null)
             {
-                login = await _AccountViewModel.Logincheckout(user);
+                result = await _AccountViewModel.Logincheckout(user);
             }
             var productlist = new CombinedModel();
             productlist.ProductList = await _ProductViewModel.getJoinedlist(id);
-            if (login == 1)
+            if (result.Succeeded)
             {
                 return RedirectToAction("Cart", productlist);
             }

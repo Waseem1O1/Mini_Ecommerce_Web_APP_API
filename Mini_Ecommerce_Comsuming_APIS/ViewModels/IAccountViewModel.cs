@@ -1,12 +1,13 @@
-﻿using Mini_Ecommerce_Comsuming_APIS.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Mini_Ecommerce_Comsuming_APIS.Models;
 
 namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
 {
     public interface IAccountViewModel
     {
-        Task<int> Login(LoginViewModel model);
-        Task<int> Logincheckout(CombinedModel user);
-        Task<int> Register(RegisterViewModel model);
-        Task<int> Logout();
+        Task<SignInResult> Login(LoginViewModel user);
+        Task<IdentityResult> Register(RegisterViewModel model);
+        Task Logout();
+        Task<SignInResult> Logincheckout(CombinedModel user);
     }
 }

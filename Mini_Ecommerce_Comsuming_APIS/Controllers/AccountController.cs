@@ -36,16 +36,11 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _AccountViewModel.Register(model);
-                if (result == 2)
-                {
-                    ViewBag.ErrorMessage = $"Role with Id = {model.Id} cannot be found";
-                    return View("NotFound");
-                }
-                if (result == 1)
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Login", "Account");
                 }
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                ModelState.AddModelError(string.Empty, "Error Occured Cannot Register New User");
             }
             return View(model);
         }
@@ -59,13 +54,11 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel user)
         {
-
             if (ModelState.IsValid)
             {
-                var login = await _AccountViewModel.Login(user);
-                if (login == 1)
+                Microsoft.AspNetCore.Identity.SignInResult result = await _AccountViewModel.Login(user);
+                if (result.Succeeded)
                 {
-
                     return RedirectToAction("Index", "Product");
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
@@ -83,15 +76,9 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
                     Expires = DateTime.Now.AddDays(-1)
                 };
                 Response.Cookies.Append(key, value, cookieOptions);
-
             }
             await _AccountViewModel.Logout();
             return RedirectToAction("privacy", "Home");
         }
-        //[HttpGet]
-        //public IActionResult ListRoles()
-        //{
-
-        //}
     }
 }

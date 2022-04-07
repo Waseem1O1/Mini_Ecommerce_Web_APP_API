@@ -19,7 +19,6 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
             APIURL = new APIRequest(configuration);
             _httpContextAccessor = httpContextAccessor;
         }
-        
         public async Task<ProductsModel> Index()
         {
             if (_httpContextAccessor.HttpContext.Request.Cookies["UserID"] == null)
@@ -98,7 +97,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
             return Convert.ToInt32(productId);
         }
         int result = 0;
-        public async Task<int> SavingMultipleImages(List<IFormFile> files, MultipleImagesModel mim)
+        public async Task<bool> SavingMultipleImages(List<IFormFile> files, MultipleImagesModel mim)
         {
             foreach (IFormFile postedfiles in files)
             {
@@ -119,7 +118,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
                     }
                 }
             }
-            return 1;
+            return true;
         }
         public async Task<ProductModel> Details(int id)
         {
@@ -208,17 +207,13 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
             }
             return 0;
         }
-        public async Task<int> Delete(int id)
+        public async Task<HttpResponseMessage> Delete(int id)
         {
             client = APIURL.initialProducts();
-            HttpResponseMessage res = await client.DeleteAsync("" + id);
-            if (res.IsSuccessStatusCode)
-            {
-                return 1;
-            }
-            return 0;
+            var res = await client.DeleteAsync("" + id);
+            return res;
         }
-        public async Task<int> DeleteCart(string id)
+        public async Task<HttpResponseMessage> DeleteCart(string id)
         {
             if (_userManager.GetUserId(_httpContextAccessor.HttpContext.User) != null)
             {
@@ -232,12 +227,8 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
                 id = _httpContextAccessor.HttpContext.Request.Cookies["UserID"];
             }
             client = APIURL.initialGetCartdetails();
-            HttpResponseMessage res = await client.DeleteAsync("" + id);
-            if (res.IsSuccessStatusCode)
-            {
-                return 1;
-            }
-            return 0;
+            var res = await client.DeleteAsync("" + id);
+            return res;
         }
         public async Task<List<ProductModel>> getJoinedlist(string id)
         {
@@ -304,7 +295,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
         PleaseLogin:
             return CM.ProductList;
         }
-        public async Task<int> RemoveFromCart(int id)
+        public async Task<HttpResponseMessage> RemoveFromCart(int id)
         {
             string name = _httpContextAccessor.HttpContext.Request.Cookies["UserID"];
             CartDetailsModel cdm = new CartDetailsModel();
@@ -332,7 +323,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
             int DetailID = cdm.DetailsID;
             client = APIURL.initialCart();
             HttpResponseMessage res = await client.DeleteAsync("" + DetailID);
-            return 1;
+            return res;
         }
         public async Task<int> UpdateCart(int id, string userid, decimal linetotal, decimal price, string quantity)
         {

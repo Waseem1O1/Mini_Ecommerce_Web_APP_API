@@ -106,8 +106,8 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         public async Task<IActionResult> Login(CombinedModel user, int pid)
         {
             user.PM = await _ProductsViewModel.Detailsbuynow(pid);
-            var login = await _AccountViewModel.Logincheckout(user);
-            if (login == 1)
+            Microsoft.AspNetCore.Identity.SignInResult result = await _AccountViewModel.Logincheckout(user);
+            if (result.Succeeded)
             {
                 return View("DeliveryInformation", user);
             }
