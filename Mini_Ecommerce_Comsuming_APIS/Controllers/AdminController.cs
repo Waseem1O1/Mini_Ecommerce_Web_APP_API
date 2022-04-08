@@ -12,9 +12,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
-
         public readonly UserManager<IdentityUser> usermanager;
-
         public IAdminViewModel _AdmintViewModel { get; }
         public AdminController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> usermanager, IAdminViewModel AdminViewModel)
         {
@@ -35,7 +33,6 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Create_Role(AdminModel model)
         {
@@ -96,19 +93,15 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         public async Task<IActionResult> EditUsersInRole(List<AddRoleModel> model, string roleId)
         {
             var role = await roleManager.FindByIdAsync(roleId);
-
             if (role == null)
             {
                 ViewBag.ErrorMessage = $"Role with Id = {roleId} cannot be found";
                 return View("NotFound");
             }
-
             for (int i = 0; i < model.Count; i++)
             {
                 var user = await usermanager.FindByIdAsync(model[i].UserId);
-
                 IdentityResult result = null;
-
                 if (model[i].IsSelected && !(await usermanager.IsInRoleAsync(user, role.Name)))
                 {
                     result = await usermanager.AddToRoleAsync(user, role.Name);

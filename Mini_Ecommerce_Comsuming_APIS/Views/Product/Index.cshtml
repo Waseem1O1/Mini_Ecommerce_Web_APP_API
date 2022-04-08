@@ -11,23 +11,23 @@
         *@            <div class=" row justify-content-center items">
             @foreach (Product product in Model.Products)
             {
-                <div class="col-sm-3 m-2" id="myproductList">
-                    <div class="card shadow-sm" id="items">
-                        <img src="@String.Format(" data:image /gif;base64,{0}", Convert.ToBase64String(product.Image))" class="img-fluid">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">
+                    <div class="col-sm-3 m-2" id="myproductList">
+                        <div class="card shadow-sm" id="items">
+                            <img src="@String.Format(" data:image /gif;base64,{0}", Convert.ToBase64String(product.Image))" class="img-fluid">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">
                                 @Html.DisplayFor(modelItem => product.ProductName)
-                            </h5>
-                            <p class="card-text  text-center font-bold">
+                                </h5>
+                                <p class="card-text  text-center font-bold">
                                 @Html.DisplayFor(modelItem => product.Price,new{@class="font-bold"})
-                            </p>
-                            <p class="text-center">
-                                <i class="bi bi-star-half text-primary text-center"></i> <i class="bi bi-star-half text-primary text-center"></i> <i class="bi bi-star-half text-primary text-center"></i> <i class="bi bi-star-half text-primary text-center"></i>
-                            </p>
-                            <a asp-action="Details" class="btn btn-primary w-100 bg-info" asp-route-id="@product.ProductID"> <i class="bi bi-info-square"></i> &nbsp;View Details</a>
+                                </p>
+                                <p class="text-center">
+                                    <i class="bi bi-star-half text-primary text-center"></i> <i class="bi bi-star-half text-primary text-center"></i> <i class="bi bi-star-half text-primary text-center"></i> <i class="bi bi-star-half text-primary text-center"></i>
+                                </p>
+                                <a asp-action="Details" class="btn btn-primary w-100 bg-info" asp-route-id="@product.ProductID"> <i class="bi bi-info-square"></i> &nbsp;View Details</a>
+                            </div>
                         </div>
                     </div>
-                </div>
             }
         </div>
     </div>
@@ -39,27 +39,27 @@
             {
                 @if (ViewBag.Nopagination > 1)
                 {
-                    <ul class="pagination">
+                            <ul class="pagination">
                         @for (int i = 1; i <= Model.PageCount; i++)
                         {
                             @if (i != Model.CurrentPageIndex)
                             {
-                                <li class="page-item">
+                                                <li class="page-item">
 
-                                    <a class="page-link" href="javascript:PagerClick(@i);">@i</a>
-                                </li>
+                                                    <a class="page-link" href="javascript:PagerClick(@i);">@i</a>
+                                                </li>
 
                             }
                             else
                             {
-                                <li class="page-item active">
-                                    <a class="page-link">@i</a>
-                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link">@i</a>
+                                                </li>
                             }
 
                         }
 
-                    </ul>
+                            </ul>
                 }
             }
         </div>
@@ -83,7 +83,7 @@
 </form>
 
 @section Scripts{
-
-    }
+@*        <script src="https://code.tidio.co/qpm2prcxry3v3chuslwg5tt7qvjrrvxj.js" async></script>
+*@    }
 
 
