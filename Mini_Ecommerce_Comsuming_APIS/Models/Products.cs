@@ -22,7 +22,6 @@ namespace Mini_Ecommerce_Comsuming_APIS.Models
         public decimal Price { get; set; }
         [Display(Name = "Image")]
 
-        [MaxLength(1000)]
         public byte[] Image { get; set; }
     }
 }

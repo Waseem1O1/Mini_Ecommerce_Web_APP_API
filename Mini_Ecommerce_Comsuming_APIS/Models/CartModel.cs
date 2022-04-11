@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mini_Ecommerce_Comsuming_APIS.Models
 {
@@ -6,6 +7,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.Models
     {
         [Key]
         public int CartID { get; set; }
-        public int UserID { get; set; }
+        [Column(TypeName = "varchar(500)")]
+        public string UserID { get; set; }
     }
 }

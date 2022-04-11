@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Mini_Ecom_APIS.Models;
 using Mini_Ecom_APIS.Repository;
@@ -15,6 +16,7 @@ builder.Services.AddTransient<IGetProductsRepository, GetProductsRepository>();
 var connectionString = builder.Configuration.GetConnectionString("AuthenticationDbContextContextConnection");
 builder.Services.AddDbContext<DataBaseContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 28))));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DataBaseContext>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

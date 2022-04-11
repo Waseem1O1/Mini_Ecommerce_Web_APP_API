@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mini_Ecom_APIS.Models
 {
-    public class DataBaseContext : DbContext
+    public class DataBaseContext : IdentityDbContext
     {
-        public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
+        private readonly DbContextOptions _options;
+        public DataBaseContext(DbContextOptions options) : base(options)
         {
+            _options = options;
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<cartdetailss> cartdetailss { get; set; }

@@ -7,7 +7,7 @@ using Mini_Ecommerce_Comsuming_APIS.ViewModels;
 
 namespace Mini_Ecommerce_Comsuming_APIS.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
 
     public class AdminController : Controller
     {

@@ -28,14 +28,18 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         decimal Getdiscountedamount = 0;
         decimal remainingAmount = 0;
         decimal DiscountInPercentage = 0;
+        string name = "";
         public async Task<IActionResult> DeliveryInformation(CombinedModel cm, int id)
         {
             cm.PM = await _ProductsViewModel.Detailsbuynow(id);
             TempData["ID"] = id;
+            
             if (_userManager.GetUserId(_httpContextAccessor.HttpContext.User) != null)
             {
-                _httpContextAccessor.HttpContext.Session.SetString(SessionKeyName, _userManager.GetUserId(_httpContextAccessor.HttpContext.User));
-                var name = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyName);
+                string key = "UserID";
+                string value = _userManager.GetUserId(_httpContextAccessor.HttpContext.User);
+                name = value;
+                _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value);
             }
             else
             {
