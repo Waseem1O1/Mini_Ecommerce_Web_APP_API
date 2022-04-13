@@ -149,6 +149,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
                     }
                     else
                     {
+                        cm.DM.payable = cm.DM.total + cm.DM.shipping;
                         ViewBag.InvalidCoupon = "Invalid Coupon!";
                     }
                 }

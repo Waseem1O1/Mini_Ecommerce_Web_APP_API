@@ -11,7 +11,7 @@ using Mini_Ecom_APIS.Models;
 namespace Mini_Ecom_APIS.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20220411063633_initial")]
+    [Migration("20220413051622_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
