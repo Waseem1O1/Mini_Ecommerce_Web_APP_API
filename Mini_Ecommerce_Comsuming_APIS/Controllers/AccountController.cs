@@ -26,8 +26,8 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         }
         public IActionResult Register()
         {
-            var roles = roleManager.Roles.Where(a => a.Name == "User").ToList();
-            ViewBag.aspnetroleslist = new SelectList(roles.ToList(), "Id", "Name");
+            var roles = roleManager.Roles.Where(a => a.Name == "User").FirstOrDefault();
+            ViewBag.aspnetroleslist = roles.Id;
             return View();
         }
         [HttpPost]

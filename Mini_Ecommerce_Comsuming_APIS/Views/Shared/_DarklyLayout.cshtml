@@ -28,7 +28,7 @@
                                 @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                                 {
                                     <li class="nav-item d-flex">
-                                        <a class="nav-link font-bold" asp-area="" asp-controller="Product" asp-action="Add">CREATE</a>
+                                        <a class="nav-link font-bold" asp-area="" asp-controller="Admin" asp-action="Add">CREATE</a>
                                     </li>
                                     <li class="nav-item d-flex">
                                         <a class="nav-link font-bold" asp-area="" asp-controller="Admin" asp-action="Create_Role">ROLES</a>

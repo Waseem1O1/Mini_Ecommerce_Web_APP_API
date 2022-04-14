@@ -59,23 +59,8 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
             ViewBag.Nopagination = ProductList.PageCount;
             return View(ProductList);
         }
-        public ActionResult Add()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Add(List<IFormFile> files, Product pm)
-        {
-            MultipleImagesModel mim = new MultipleImagesModel();
-            var Productid = await _ProductViewModel.Saving(files, pm);
-            mim.ProductId = Productid;
-            var add = await _ProductViewModel.SavingMultipleImages(files, mim);
-            if (add == true && Productid != 0)
-            {
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+      
+       
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {

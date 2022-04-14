@@ -14,11 +14,15 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         public readonly UserManager<IdentityUser> usermanager;
         public IAdminViewModel _AdmintViewModel { get; }
-        public AdminController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> usermanager, IAdminViewModel AdminViewModel)
+        public IProductsViewModel _ProductViewModel { get; }
+        public ICouponViewModel _CouponViewModel { get; }
+        public AdminController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> usermanager, IAdminViewModel AdminViewModel, IProductsViewModel ProductViewModel, ICouponViewModel CouponViewModel)
         {
             this.roleManager = roleManager;
             this.usermanager = usermanager;
             _AdmintViewModel = AdminViewModel;
+            _ProductViewModel = ProductViewModel;
+            _CouponViewModel = CouponViewModel;
         }
 
         [HttpGet]
@@ -49,6 +53,23 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
                 }
             }
             return View(model);
+        }
+        public ActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add(List<IFormFile> files, Product pm)
+        {
+            MultipleImagesModel mim = new MultipleImagesModel();
+            var Productid = await _ProductViewModel.Saving(files, pm);
+            mim.ProductId = Productid;
+            var add = await _ProductViewModel.SavingMultipleImages(files, mim);
+            if (add == true && Productid != 0)
+            {
+                return RedirectToAction("Index", "Product");
+            }
+            return View();
         }
         [HttpGet]
         public async Task<IActionResult> ListRoles()
@@ -125,6 +146,16 @@ namespace Mini_Ecommerce_Comsuming_APIS.Controllers
             }
 
             return RedirectToAction("EditRole", new { Id = roleId });
+        }
+        public ActionResult AddCouponCode()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddCouponCode(CouponCodeModel ccm)
+        {
+            var add = await _CouponViewModel.Saving(ccm);
+            return View();
         }
     }
 }

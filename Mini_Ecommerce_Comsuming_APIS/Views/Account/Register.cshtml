@@ -39,11 +39,8 @@
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label>Your Role</label>
                     <div class="input-group mb-3">
-                        <span class="input-group-text bg-primary text-light" id="basic-addon1"><i class="bi bi-envelope"></i></span>
-                        <select class="form-control"  asp-for="RoleID" asp-items="ViewBag.aspnetroleslist">
-                        </select>
+                        <input asp-for="RoleID" type="hidden" class="form-control" value="@ViewBag.aspnetroleslist" />
                     </div>
                 </div>
                 <hr />
