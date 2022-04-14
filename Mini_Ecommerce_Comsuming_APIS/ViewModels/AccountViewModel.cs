@@ -30,7 +30,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
             if (result.Succeeded)
             {
                 // await _signInManager.SignInAsync(user, isPersistent: false);
-                var role = await roleManager.FindByIdAsync(model.Id);
+                var role = await roleManager.FindByIdAsync(model.RoleID);
                 if (role != null)
                 {
                     result = await _userManager.AddToRoleAsync(user, role.Name);

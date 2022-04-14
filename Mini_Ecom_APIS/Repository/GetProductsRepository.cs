@@ -23,7 +23,7 @@ namespace Mini_Ecom_APIS.Repository
        
         public ProductsModel Getproducts(int currentPage)
         {
-            int maxRows = 12;
+            int maxRows = 10;
             ProductsModel customerModel = new ProductsModel();
 
             customerModel.Products = (from products in _context.Products

@@ -15,7 +15,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.Models
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Password and confirmation password not match.")]
         public string ConfirmPassword { get; set; }
-        public string Id { get; set; }
+        public string RoleID { get; set; }
     }
 }
 
