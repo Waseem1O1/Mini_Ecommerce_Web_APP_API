@@ -63,13 +63,7 @@ namespace Mini_Ecommerce_Comsuming_APIS.ViewModels
             var role = await roleManager.FindByIdAsync(roleId);
             if (role != null)
             {
-                //var result = (from user in _userManager.Users
-                //              join roles in roleManager.Roles. on user.Id equals roles.Id
-                //              where (roles.Id != "2b4abbf4-1293-4f2e-9015-ea0c66f85809")
-                //              select new
-                //              {
-                //                  user
-                //              }).ToList();
+               
                 foreach (var user in _userManager.Users.ToList())
                 {
                     var addrolesToUSER = new AddRoleModel
